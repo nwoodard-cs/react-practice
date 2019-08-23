@@ -1,36 +1,41 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-const booksRead = {
-  total: 20,
-  fiction: 2,
-  nonFiction: 18,
-  goal: 50
+const books = [
+  { title: "Dune", author: "Frank Herbert", genre:"Dystopian", rating: 4},
+  { title: "Godel Escher Bach", author: "Douglas Hoffstader", genre:"Philosopy", rating: 5},
+  { title: "The Hobbit", author: "J.R.R. Tolkien", genre:"Fantasy", rating: 5},
+  { title: "Infinite Jest", author: "David Foster Wallace", genre: "Dystopian", rating: 4},
+  { title: "Stand out of Our Light", author: "James Williams", genre: "Psychology", rating: 5}
+]
+
+const Book = ({title, author, genre, rating}) => {
+  return (
+    <section>
+      <h2>{title}</h2>
+      <h4>Written by {author}</h4>
+      <p><i>{genre}: {rating}&#9733;</i></p>
+    </section>
+  )
 }
-
-const getPercent = dec => dec * 100 + '%'
-const calcGoalProgress = (total, goal) => getPercent(total/goal)
-
-const BookCounter = ({color, total, fiction, nonFiction, goal}) => {
+const Library = ({books}) => {
   return (
     <div>
-      <h1 style={{color}}>Books!</h1>
-      <p>Books Read: {total} ({fiction} fiction, {nonFiction} nonfiction)</p>
-      <p>Goal Progress: {calcGoalProgress(total, goal)} ({total} of {goal} books)</p>
+      <h1>Books I Love</h1>
+      {books.map(
+        (book, i) => <Book key={i} title={book.title} author={book.author} genre={book.genre} rating={book.rating} />
+      )
+
+      }
     </div>
   )
 }
 
-ReactDOM.render(
-  <BookCounter 
-    color="gray"
-    total={booksRead.total}
-    fiction={booksRead.fiction}
-    nonFiction={booksRead.nonFiction}
-    goal={booksRead.goal}
-    />, 
+
+render(
+  <Library books={books}/>,
   document.getElementById('root'));
 
 serviceWorker.unregister();
