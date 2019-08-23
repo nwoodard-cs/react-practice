@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
@@ -21,15 +21,35 @@ const Book = ({title, author, genre, rating}) => {
   )
 }
 
-const Library = ({books}) => {
+class Library extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      isReading: true
+    }
+    this.toggleReadingStatus = this.toggleReadingStatus.bind(this) // This is the dumbest shit I've ever seen.
+  }
+
+  toggleReadingStatus() {
+    this.setState({
+      isReading: !this.state.isReading
+    })
+  }
+  render(){
+    console.log(this.props)
+    const {books} = this.props
+    const {isReading} = this.state
   return (
     <div>
       <h1>Books I Love</h1>
+      <div>I am {isReading ? '' : 'not'} reading right now.</div>
+      <button onClick={this.toggleReadingStatus}>Swap Reading Status</button>
       {books.map(
         (book, i) => <Book key={i} title={book.title} author={book.author} genre={book.genre} rating={book.rating} />
       )}
     </div>
   )
+      }
 }
 
 render (
