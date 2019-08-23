@@ -27,16 +27,12 @@ class Library extends Component {
     this.state = {
       isReading: true
     }
-    this.toggleReadingStatus = this.toggleReadingStatus.bind(this) // This is the dumbest shit I've ever seen.
   }
 
-  toggleReadingStatus() {
-    this.setState({
+  toggleReadingStatus= () => this.setState({
       isReading: !this.state.isReading
     })
-  }
   render(){
-    console.log(this.props)
     const {books} = this.props
     const {isReading} = this.state
   return (
