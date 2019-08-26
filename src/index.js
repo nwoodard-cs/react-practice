@@ -9,11 +9,12 @@ const books = [
   { title: "Infinite Jest", author: "David Foster Wallace", genre: "Dystopian", rating: "4" },
   { title: "Godel Escher Bach", author: "Douglas Hoffstader", genre:"Philosopy", rating: "5" },
   { title: "Dune", author: "Frank Herbert", genre:"Dystopian", rating: "4" },
+  { title: "The Challenge of Affluence", author: "Avner Offer", genre:"Economics", rating: "5" }
 ]
 
 const genres = [ 'Dystopian', 'Psychology', 'Philosophy' ] 
 
-const Book = ({ title, author, genre, rating, lendable }) => {
+const Book = ({ title="No Title Provided", author="No Author", genre="N/A", rating="0", lendable=false }) => {
   return (
     <section>
       <h2>{ title }</h2>
@@ -37,6 +38,12 @@ const NoRecommendations = () => {
   )
 }
 class Library extends Component {
+
+  static defaultProps = {
+    books: [
+      { title: "The Challenge of Affluence", author: "Avner Offer", genre:"Economics", rating: "5" },
+    ]
+  }
   state = { 
     isReading: true,
     lendable: false,
